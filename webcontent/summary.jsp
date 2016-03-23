@@ -12,24 +12,27 @@
 </head>
 <body>
 <%
-String empId = (String)request.getSession().getAttribute("empId");
+HttpSession httpSession = request.getSession();
+String empId = (String)httpSession.getAttribute("empId");
 
 ArrayList<ArrayList<SummaryVO>> summaryList = (ArrayList<ArrayList<SummaryVO>>)request.getAttribute("summaryList");
 ArrayList<SummaryVO> submitterList = null;
 ArrayList<SummaryVO> approverList = null;
-ArrayList<SummaryVO> tempList = summaryList.get(0);
-if(summaryList.size()>0 && summaryList.size()==2){
-	submitterList = summaryList.get(0);
-	approverList = summaryList.get(1);
-}else if((tempList.get(0)).isApprover()){
-	approverList = tempList;
-}else{
-	submitterList = tempList;
+if(summaryList!=null && summaryList.size()!=0){
+	ArrayList<SummaryVO> tempList = summaryList.get(0);
+	if(summaryList.size()>0 && summaryList.size()==2){
+		submitterList = summaryList.get(0);
+		approverList = summaryList.get(1);
+	}else if((tempList.get(0)).isApprover()){
+		approverList = tempList;
+	}else{
+		submitterList = tempList;
+	}
 }
 %>
 
 <form action="OperationServlet">
-<table  class="headertable" height="70px";>
+<table  class="headertable" height="70px">
 <thead>
 	<tr>
 	<td>
@@ -40,6 +43,7 @@ if(summaryList.size()>0 && summaryList.size()==2){
  </tr>
  </thead>
 </table>
+<%if(submitterList != null) {%>
 <table width="100%" >
 	<tr>
 		<td>
@@ -74,8 +78,9 @@ if(summaryList.size()>0 && summaryList.size()==2){
 			</td>
 		</tr>
 		</thead>
-		<%
+<%
 	for(int i=0;i<submitterList.size();i++){
+		httpSession.setAttribute("submitterVO", submitterList.get(i));
 %>
 		<tr>
 			<td>
@@ -97,10 +102,9 @@ if(summaryList.size()>0 && summaryList.size()==2){
 				<%=submitterList.get(i).getStatus()%>
 			</td>
 			<td>
-				<input type="submit" name="View" value="View" >
-				<input type="submit" name="Update" value="Update">
-				<input type="submit" name="Delete" value="Delete">
-				<input type=hidden name="submitterVO" value="<%=submitterList.get(i)%>"/>  
+				<input type="submit" name="submitterView" value="View" >
+				<input type="submit" name="Update" value="Update" >
+				<input type="submit" name="Delete" value="Delete" >
 			</td>
 		</tr>
 <%
@@ -110,6 +114,10 @@ if(summaryList.size()>0 && summaryList.size()==2){
 	</td>
 	</tr>	
 </table>
+<%
+}
+%>
+<%if(approverList != null) {%>
 		
 <table width="100%" >
 	<tr>
@@ -147,6 +155,7 @@ if(summaryList.size()>0 && summaryList.size()==2){
 		</thead>
 <%
 	for(int i=0;i<approverList.size();i++){
+		httpSession.setAttribute("approverVO", approverList.get(i));
 %>
 		<tr>
 			<td>
@@ -168,10 +177,9 @@ if(summaryList.size()>0 && summaryList.size()==2){
 				<%=approverList.get(i).getStatus()%>
 			</td>
 			<td>
-			    <input type="submit" name="View" value="View">
-				<input type="submit" name="Approve" value="Approve">
-				<input type="submit" name="Reject" value="Reject">
-				<input type=hidden name="submitterVO" value="<%=submitterList.get(i)%>"/> 
+			    <input type="button" name="ApproverView" value="View" >
+				<input type="button" name="Approve" value="Approve" >
+				<input type="submit" name="Reject" value="Reject" > 
 			</td>
 		</tr>
 <%
@@ -181,6 +189,9 @@ if(summaryList.size()>0 && summaryList.size()==2){
 	</td>
 	</tr>	
 </table>
+<%
+}
+%>
 </form>
 </body>
 </html>

@@ -40,144 +40,14 @@ if(summaryList.size()>0 && summaryList.size()==2){
  </tr>
  </thead>
 </table>
-<table width="100%" >
+<table>
 	<tr>
 		<td>
-			<h3>Summary of reimbursement forms submitted by you</h3>
+			Type of expense
 		</td>
-	</tr>
-	<tr>
-	 <td>
-		<table width="70%" class="summarytable">
-		<thead >
-		<tr>
-			<td>
-				Form Id
-			</td>
-			<td>
-				Type
-			</td>
-			<td>
-				Supervisor
-			</td>
-			<td>
-				Amount
-			</td>
-			<td>
-				Last operation date
-			</td>
-			<td>
-				Status
-			</td>
-			<td>
-				Action
-			</td>
-		</tr>
-		</thead>
-		<%
-	for(int i=0;i<submitterList.size();i++){
-%>
-		<tr>
-			<td>
-				<%=submitterList.get(i).getReimbursementId()%>
-			</td>
-			<td>
-				<%=submitterList.get(i).getType()%>
-			</td>
-			<td>
-				<%=submitterList.get(i).getApproverEmpId()%>
-			</td>
-			<td>
-				<%=submitterList.get(i).getAmount()%>
-			</td>
-			<td>
-				<%=submitterList.get(i).getOperationDate()%>
-			</td>
-			<td>
-				<%=submitterList.get(i).getStatus()%>
-			</td>
-			<td>
-				<input type="submit" name="View" value="View">
-				<input type="submit" name="Update" value="Update">
-				<input type="submit" name="Delete" value="Delete">
-			</td>
-		</tr>
-<%
-	}
-%>
-		</table>
-	</td>
-	</tr>	
-</table>
+		<td><input type="text" name="formType">
+		</td>
 		
-<table width="100%" >
-	<tr>
-		<td>
-			<h3>Summary of reimbursement forms awaiting your approval</h3>
-		</td>
-	</tr>
-	<tr>
-	 <td>
-		<table width="70%" class="summarytable">
-		<thead >
-		<tr>
-			<td>
-				Form Id
-			</td>
-			<td>
-				Type
-			</td>
-			<td>
-				Submitted by
-			</td>
-			<td>
-				Amount
-			</td>
-			<td>
-				Last operation date
-			</td>
-			<td>
-				Status
-			</td>
-			<td>
-				Action
-			</td>
-		</tr>
-		</thead>
-<%
-	for(int i=0;i<approverList.size();i++){
-%>
-		<tr>
-			<td>
-				<%=approverList.get(i).getReimbursementId()%>
-			</td>
-			<td>
-				<%=approverList.get(i).getType()%>
-			</td>
-			<td>
-				<%=approverList.get(i).getEmpId()%>
-			</td>
-			<td>
-				<%=approverList.get(i).getAmount()%>
-			</td>
-			<td>
-				<%=approverList.get(i).getOperationDate()%>
-			</td>
-			<td>
-				<%=approverList.get(i).getStatus()%>
-			</td>
-			<td>
-			    <input type="submit" name="View" value="View">
-				<input type="submit" name="Approve" value="Approve">
-				<input type="submit" name="Reject" value="Reject">
-			</td>
-		</tr>
-<%
-	}
-%>
-		</table>
-	</td>
-	</tr>	
 </table>
 </body>
 </html>
