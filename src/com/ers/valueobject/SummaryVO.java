@@ -13,7 +13,7 @@ import java.util.Date;
  *
 */
 
-public class SummaryVO{
+public class SummaryVO implements VOFactory{
 	int empId;
 	int approverEmpId;
 	int reimbursementId ;

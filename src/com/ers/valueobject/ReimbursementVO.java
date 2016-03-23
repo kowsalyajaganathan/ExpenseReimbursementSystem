@@ -14,30 +14,52 @@ import java.util.Date;
 */
 
 public class ReimbursementVO{
-	int empId;
+	int submitterId;
+	int approverId;
+	
+	
 	int reimbursementId ;
 	String reimbursementType;
-	double amount;
+	float amount;
 	Date toDate;
 	Date fromDate;
 	int receiptNum;
-	//String Status ;
+	String Status ;
 	String certificationType;
 	boolean isPass;
-	double score;
+	float score;
 	String activityType;
 	String trainingType;
 	String fromCountry;
 	String fromCity;
 	String toCountry;
 	String toCity;
+	Date modifiedDate;
 	
 	
-	public int getEmpId() {
-		return empId;
+	public int getSubmitterId() {
+		return submitterId;
 	}
-	public void setEmpId(int empId) {
-		this.empId = empId;
+	public void setSubmitterId(int submitterId) {
+		this.submitterId = submitterId;
+	}
+	public int getApproverId() {
+		return approverId;
+	}
+	public void setApproverId(int approverId) {
+		this.approverId = approverId;
+	}
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	public String getStatus() {
+		return Status;
+	}
+	public void setStatus(String status) {
+		Status = status;
 	}
 	public int getReimbursementId() {
 		return reimbursementId;
@@ -54,7 +76,7 @@ public class ReimbursementVO{
 	public double getAmount() {
 		return amount;
 	}
-	public void setAmount(double amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 	public Date getToDate() {
@@ -96,7 +118,7 @@ public class ReimbursementVO{
 	public double getScore() {
 		return score;
 	}
-	public void setScore(double score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 	public String getActivityType() {

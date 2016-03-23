@@ -12,7 +12,7 @@ import com.ers.valueobject.TeamDetailsVO;
  *
 */
 
-public class EmployeeVO{
+public class EmployeeVO implements VOFactory{
 	int empId;
 	String name;
 	boolean isSupervisor;
