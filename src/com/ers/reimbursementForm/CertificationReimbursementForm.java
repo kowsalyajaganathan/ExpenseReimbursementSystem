@@ -1,5 +1,8 @@
 package com.ers.reimbursementForm;
 
+import org.apache.log4j.Logger;
+
+import com.ers.common.ERSValidationException;
 
 /**
  *CertificationReimbursementForm.java
@@ -15,18 +18,32 @@ package com.ers.reimbursementForm;
 */
 
 public class CertificationReimbursementForm extends ReimbursementFormFactory{
+	final static Logger logger = Logger.getLogger(CertificationReimbursementForm.class);
 	String certificationType;
 	boolean isPass;
-	double score;	
+	float score;	
 	
 	public boolean formValidation(ReimbursementFormFactory form){
-		
+		try{
+		//The business  logic needs to be implemented. can throw ERSValidationException for specific scenarios
+			throw new ERSValidationException("Validation Exception for Rule 1");
+		}catch(ERSValidationException e){
+			logger.debug("ERSValidationException"+e);
+		}catch(Exception e){
+			logger.debug("Exception"+e);
+		}
 		return true;
 	}
 	public  boolean rulesValidation(ReimbursementFormFactory form){
 		boolean isValid = false;
-		
-		
+		try{
+			//The business  logic needs to be implemented. can throw ERSValidationException for specific scenarios
+				throw new ERSValidationException("Validation Exception for Rule 1");
+		}catch(ERSValidationException e){
+			logger.debug("ERSValidationException"+e);
+		}catch(Exception e){
+			logger.debug("Exception"+e);
+		}
 		return isValid;
 	}
 	public String getCertificationType() {
@@ -41,10 +58,10 @@ public class CertificationReimbursementForm extends ReimbursementFormFactory{
 	public void setPass(boolean isPass) {
 		this.isPass = isPass;
 	}
-	public double getScore() {
+	public float getScore() {
 		return score;
 	}
-	public void setScore(double score) {
+	public void setScore(float score) {
 		this.score = score;
 	}
 }

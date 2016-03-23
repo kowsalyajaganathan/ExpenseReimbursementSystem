@@ -1,5 +1,8 @@
 package com.ers.reimbursementForm;
 
+import org.apache.log4j.Logger;
+
+import com.ers.common.ERSValidationException;
 
 /**
  *TravelReimbursementForm.java
@@ -15,18 +18,33 @@ package com.ers.reimbursementForm;
 */
 
 public class TravelReimbursementForm extends ReimbursementFormFactory{
+	final static Logger logger = Logger.getLogger(TravelReimbursementForm.class);
 	String fromCountry;
 	String fromCity;
 	String toCountry;
 	String toCity;
 	
     public boolean formValidation(ReimbursementFormFactory form){
-		
-		return true;
+    	try{
+    		//The business  logic needs to be implemented. can throw ERSValidationException for specific scenarios
+    			throw new ERSValidationException("Validation Exception for Rule 1");
+		}catch(ERSValidationException e){
+			logger.debug("ERSValidationException"+e);
+		}catch(Exception e){
+			logger.debug("Exception"+e);
+		}
+    	return true;
 	}
     public  boolean rulesValidation(ReimbursementFormFactory form){
 		boolean isValid = false;
-		
+		try{
+    		//The business  logic needs to be implemented. can throw ERSValidationException for specific scenarios
+    			throw new ERSValidationException("Validation Exception for Rule 1");
+		}catch(ERSValidationException e){
+			logger.debug("ERSValidationException"+e);
+		}catch(Exception e){
+			logger.debug("Exception"+e);
+		}
 		
 		return isValid;
 	}
