@@ -3,6 +3,8 @@ package com.ers.util;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import org.apache.log4j.Logger;
+
 /**
  *Util.java
  *
@@ -15,7 +17,7 @@ import java.text.SimpleDateFormat;
 */
 
 public class Util{
-	
+	final static Logger logger = Logger.getLogger(Util.class);
 	public java.sql.Date convertDate(java.util.Date date){
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		return sqlDate;
@@ -23,7 +25,7 @@ public class Util{
 	
 	
 	public String dateFormat(java.util.Date date){
-		DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+		DateFormat df = new SimpleDateFormat("YYYY-MM-DD HH24:MI:SS.FF");
 		String formattedDate = df.format(date);
 		return formattedDate;
 	}

@@ -56,6 +56,22 @@ public class Constants{
 	public static final String ACTION_UPDATE="update";
 	public static final String ACTION_APPROVE="approve";
 	public static final String ACTION_REJECT="reject";
+	public static final String ACTION_SUBMITTER_VIEW="submitterview";
+	public static final String ACTION_APPROVERVIEW="approverview";
+	public static final String ACTION_UPDATESUBMIT="updatesubmit";
+	public static final String ACTION_CREATESUBMIT="createsubmit";
+	
+	public static final String MSG_DELETE_SUCCESS="Expense reimbursement form is deleted successfully";
+	public static final String MSG_DELETE_FAIL="Expense reimbursement form deletion failed";
+	public static final String MSG_CREATE_SUCCESS="Expense reimbursement form is created successfully";
+	public static final String MSG_CREATE_FAIL="Expense reimbursement form creation failed";
+	public static final String MSG_UPDATE_SUCCESS="Expense reimbursement form is updated successfully";
+	public static final String MSG_UPDATE_FAIL="Expense reimbursement form update action failed";
+	public static final String MSG_REJECT_SUCCESS="Expense reimbursement form is rejected successfully";
+	public static final String MSG_REJECT_FAIL="Expense reimbursement form reject action failed";
+	public static final String MSG_APPROVE_SUCCESS="Expense reimbursement form is approved successfully";
+	public static final String MSG_APPROVE_FAIL="Expense reimbursement form approve action failed";
+	
 
 	public static final String STATUS_CREATED="submitted";
 	//public static final String STATUS_DELETED="delete";
