@@ -2,7 +2,7 @@ package com.ers.workflow;
 
 import java.util.ArrayList;
 
-import com.ers.valueobject.EmployeeVO;
+import com.ers.valueobject.VOFactory;
 
 /**
  *DisplayActionFactory.java
@@ -17,5 +17,5 @@ import com.ers.valueobject.EmployeeVO;
 */
 
 public interface DisplayActionFactory{
-	public ArrayList<?> getList(EmployeeVO emp);
+	public ArrayList<?> getList( VOFactory vo);
 }

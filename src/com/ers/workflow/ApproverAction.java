@@ -1,6 +1,9 @@
 package com.ers.workflow;
 
 import com.ers.workflow.CRUDActionFactory;
+
+import org.apache.log4j.Logger;
+
 import com.ers.dal.dao.ApproverDAO;
 import com.ers.dal.dao.OperationDAOFactory;
 import com.ers.valueobject.ApproveOrRejectVO;
@@ -22,30 +25,41 @@ import com.ers.reimbursementForm.ReimbursementFormFactory;
 */
 
 public class ApproverAction implements CRUDActionFactory{
+	final static Logger logger = Logger.getLogger(ApproverAction.class);
 	ReimbursementFormFactory reimbursementForm = null;
 	OperationDAOFactory operationDAOFactory = null;
 	WorkflowCloneManager workflow = new WorkflowCloneManager();
 	ApproveOrRejectVO approveOrRejectVO = new ApproveOrRejectVO();
 	String actionType;
 	
-	public WorkflowCloneManager createWorkflowObject(String actionType,WorkflowCloneManager workflow) throws CloneNotSupportedException{
-		WorkflowCloneManager Approveworkflow= workflow.createWorkflow(actionType,workflow);
-		this.actionType = actionType;
-		return Approveworkflow;
+	public boolean createWorkflowObject(String actionType,ReimbursementFormFactory form,EmployeeVO empVO) {
+		boolean isWorkflowSuccess =false;
+		try{
+			WorkflowCloneManager Approveworkflow= workflow.createWorkflow(actionType,workflow);
+			this.actionType = actionType;
+			isWorkflowSuccess = startWorkflow(Approveworkflow,form,empVO);
+		}catch(CloneNotSupportedException ce){
+			logger.error("Exception"+ce.getStackTrace());
+		}
+		return isWorkflowSuccess;
 	}
 	
 	public boolean startWorkflow(WorkflowCloneManager Approveworkflow,ReimbursementFormFactory form,EmployeeVO emp){
 		boolean isSuccess = false;
 		boolean isWorkFlowSuccess = false;
 		reimbursementForm = form;
-		isWorkFlowSuccess = Approveworkflow.startWorkflow(form);
-		if(!isWorkFlowSuccess){
-			isSuccess = false;
-		}else{
-			approveOrRejectVO.setReimbursementId(form.getFormId());
-			approveOrRejectVO.setStatusToBeSet(this.actionType);
-			operationDAOFactory = getOperationDAO(approveOrRejectVO);
-			isSuccess = operationDAOFactory.performOperation();
+		try{
+			isWorkFlowSuccess = Approveworkflow.startWorkflow(form);
+			if(!isWorkFlowSuccess){
+				isSuccess = false;
+			}else{
+				approveOrRejectVO.setReimbursementId(form.getFormId());
+				approveOrRejectVO.setStatusToBeSet(this.actionType);
+				operationDAOFactory = getOperationDAO(approveOrRejectVO);
+				isSuccess = operationDAOFactory.performOperation();
+			}
+		}catch(Exception e){
+			logger.error("Exception"+e.getStackTrace());
 		}
 		
 		return isSuccess;

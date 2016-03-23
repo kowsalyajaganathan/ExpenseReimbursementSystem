@@ -18,7 +18,6 @@ import com.ers.reimbursementForm.ReimbursementFormFactory;
 public interface CRUDActionFactory{
 	WorkflowCloneManager workflow = new WorkflowCloneManager();
 	
-	public WorkflowCloneManager createWorkflowObject(String actionType,WorkflowCloneManager workflow)throws CloneNotSupportedException;
-	public boolean startWorkflow(WorkflowCloneManager workflow,ReimbursementFormFactory form,EmployeeVO e);
+	public boolean createWorkflowObject(String actionType,ReimbursementFormFactory form,EmployeeVO e);
 		
 }

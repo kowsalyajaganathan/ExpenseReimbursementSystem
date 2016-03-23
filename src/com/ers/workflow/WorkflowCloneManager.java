@@ -1,5 +1,7 @@
 package com.ers.workflow;
 
+import org.apache.log4j.Logger;
+
 import com.ers.reimbursementForm.ReimbursementFormFactory;
 import com.ers.util.Constants;
 
@@ -16,6 +18,7 @@ import com.ers.util.Constants;
  *
 */
 public class WorkflowCloneManager{
+	final static Logger logger = Logger.getLogger(WorkflowCloneManager.class);
     String  workflowType; 
    
 	public WorkflowCloneManager createWorkflow(String type,WorkflowCloneManager workflow) throws CloneNotSupportedException{
@@ -24,26 +27,24 @@ public class WorkflowCloneManager{
 		return workflow;
 	}
 	
-	/*public WorkflowCloneManager initialize(String type,WorkflowCloneManager workflow){
-		workflow = (WorkflowCloneManager)workflow.clone();
-		this.WorkflowCloneManager(type,workflow);
-		return workflow;
-	}*/
-	
 	public boolean startWorkflow(ReimbursementFormFactory form){
 		boolean isFieldValidationSuccess = false;
 		boolean isRulesValidationSuccess = false;
 		boolean isValid = false;
-		if(workflowType.equals(Constants.ACTION_CREATE) || workflowType.equals(Constants.ACTION_UPDATE)){
-			isFieldValidationSuccess = form.rulesValidation(form);
-			if(isFieldValidationSuccess){
-				isValid = true;
+		try{
+			if(workflowType.equals(Constants.ACTION_CREATE) || workflowType.equals(Constants.ACTION_UPDATE)){
+				isFieldValidationSuccess = form.rulesValidation(form);
+				if(isFieldValidationSuccess){
+					isValid = true; //The business rules logic needs to be implemented
+				}
+			}else if(workflowType.equals(Constants.ACTION_APPROVE)){
+				isRulesValidationSuccess = form.rulesValidation(form);
+				if(isRulesValidationSuccess){
+					isValid = true;//The business logic needs to be implemented
+				}
 			}
-		}else if(workflowType.equals(Constants.ACTION_APPROVE)){
-			isRulesValidationSuccess = form.rulesValidation(form);
-			if(isRulesValidationSuccess){
-				isValid = true;
-			}
+		}catch(Exception e){
+			logger.error("Exception"+e.getStackTrace());
 		}
 		
 	    return isValid;

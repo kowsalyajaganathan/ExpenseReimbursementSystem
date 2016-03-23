@@ -2,10 +2,13 @@ package com.ers.workflow;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.ers.dal.dao.ViewDAOFactory;
 import com.ers.dal.dao.ViewDetailsDAO;
 import com.ers.valueobject.EmployeeVO;
 import com.ers.valueobject.ReimbursementVO;
+import com.ers.valueobject.VOFactory;
 
 
 /**
@@ -22,16 +25,25 @@ import com.ers.valueobject.ReimbursementVO;
 */
 
 public class ViewDetailsAction implements DisplayActionFactory{
+	final static Logger logger = Logger.getLogger(ViewDetailsAction.class);
 	ViewDAOFactory viewDAOFactory = null;
 	ReimbursementVO viewDetailsVO= new ReimbursementVO();
+	EmployeeVO employeeVO ;
 	
+	public ArrayList<ReimbursementVO> getList(VOFactory VO){
+		employeeVO = (EmployeeVO)VO;
+		return getList(employeeVO);
+	}
 
 	public ArrayList<ReimbursementVO> getList(EmployeeVO emp){
 		ArrayList<ReimbursementVO> reimbursementDetailsList  =null;
-		viewDetailsVO.setEmpId(emp.getEmpId());
-		viewDAOFactory = getViewDetailsDAO(viewDetailsVO);
-		reimbursementDetailsList = (ArrayList<ReimbursementVO>)viewDAOFactory.performOperation();
-		
+		try{
+			viewDetailsVO.setSubmitterId(emp.getEmpId());
+			viewDAOFactory = getViewDetailsDAO(viewDetailsVO);
+			reimbursementDetailsList = (ArrayList<ReimbursementVO>)viewDAOFactory.performOperation();
+		}catch(Exception e){
+			logger.error("Exception"+e.getStackTrace());
+		}
 		return reimbursementDetailsList;
 	}
 	public ViewDAOFactory getViewDetailsDAO(ReimbursementVO reimbursementVO ){
