@@ -40,14 +40,6 @@ if(summaryList.size()>0 && summaryList.size()==2){
  </tr>
  </thead>
 </table>
-<table>
-	<tr>
-		<td>
-			Type of expense
-		</td>
-		<td><input type="text" name="formType">
-		</td>
-		
-</table>
+
 </body>
 </html>
