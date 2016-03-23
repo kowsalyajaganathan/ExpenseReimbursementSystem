@@ -1,5 +1,12 @@
 package com.ers.dal.dao;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.apache.log4j.Logger;
+
+import com.ers.common.DbConnectionManager;
 import com.ers.valueobject.ApproveOrRejectVO;
 
 /**
@@ -16,6 +23,7 @@ import com.ers.valueobject.ApproveOrRejectVO;
 */
 
 public class ApproverDAO implements OperationDAOFactory{
+	final static Logger logger = Logger.getLogger(ApproverDAO.class);
 	ApproveOrRejectVO valueObject=null;
 	
 	public ApproverDAO(ApproveOrRejectVO valueObject){
@@ -23,6 +31,21 @@ public class ApproverDAO implements OperationDAOFactory{
 	}
 	
 	public boolean performOperation(){
-		return true;
+		boolean isSuccess=false;
+		try(Connection connection = DbConnectionManager.getConnection();Statement statement=connection.createStatement()){
+			logger.debug("Entering : ApproverDAO.performOperation");			
+			String sql = "UPDATE REIMBURSEMENT_FORM_DETAILS SET MODIFIED_DATE=CURRENT_TIMESTAMP, STATUS='"+valueObject.getStatusToBeSet() +"' WHERE FORM_ID='";
+			sql = sql+valueObject.getReimbursementId()+"'";
+			logger.debug("SQL"+sql);
+			int result = statement.executeUpdate(sql);
+			if(result>0)
+				isSuccess=true;
+			logger.debug("Exiting : ApproverDAO.performOperation");
+		}catch(SQLException sqle){
+			logger.error("Exception "+sqle.getStackTrace());		
+		}catch(Exception e){
+			logger.error("Exception "+e.getStackTrace());
+		}
+		return isSuccess;
 	}
 }

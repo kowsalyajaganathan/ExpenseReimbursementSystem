@@ -1,10 +1,12 @@
 package com.ers.dal.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import org.apache.log4j.Logger;
 
+import com.ers.common.DbConnectionManager;
+import com.ers.servlet.LoginServlet;
 import com.ers.valueobject.EmployeeVO;
 
 /**
@@ -21,17 +23,22 @@ import com.ers.valueobject.EmployeeVO;
 */
 
 public class EmployeeDAO {
-    EmployeeVO valueObject=null;
-    final static Logger logger = Logger.getLogger(EmployeeDAO.class);
+	 EmployeeVO valueObject=null;
+     final static Logger logger = Logger.getLogger(EmployeeDAO.class);
     
-	/*public SummaryDAO(SummaryVO valueObject){
+	public EmployeeDAO(EmployeeVO valueObject){
 		this.valueObject = valueObject;
-	}*/
+	}
 	public EmployeeVO performOperation(EmployeeVO valueObject){
-		valueObject = new EmployeeVO();
-		try{
-			valueObject.setName("Kowsalya");
-			valueObject.setSupervisor(true);
+		try(Connection connection = DbConnectionManager.getConnection();Statement statement=connection.createStatement()){
+			String sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID='";
+			sql = sql+valueObject.getEmpId()+"'";
+			logger.debug("SQL"+sql);
+			ResultSet resultset = statement.executeQuery(sql);
+			while(resultset.next()){
+				valueObject.setName(resultset.getString("NAME"));
+				valueObject.setEmpId(resultset.getInt("EMP_ID"));
+			}
 		}catch(Exception e){
 			logger.error("Exception at EmployeeDAO::performOperation"+e.getStackTrace());
 		}
