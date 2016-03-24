@@ -16,7 +16,7 @@ import com.ers.reimbursementForm.ReimbursementFormFactory;
 */
 
 public interface CRUDActionFactory{
-	WorkflowCloneManager workflow = new WorkflowCloneManager();
+	static WorkflowCloneManager workflow = new WorkflowCloneManager();
 	
 	public boolean createWorkflowObject(String actionType,ReimbursementFormFactory form,EmployeeVO e);
 		

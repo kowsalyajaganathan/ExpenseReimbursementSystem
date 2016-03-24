@@ -28,7 +28,6 @@ public class ApproverAction implements CRUDActionFactory{
 	final static Logger logger = Logger.getLogger(ApproverAction.class);
 	ReimbursementFormFactory reimbursementForm = null;
 	OperationDAOFactory operationDAOFactory = null;
-	WorkflowCloneManager workflow = new WorkflowCloneManager();
 	ApproveOrRejectVO approveOrRejectVO = new ApproveOrRejectVO();
 	String actionType;
 	

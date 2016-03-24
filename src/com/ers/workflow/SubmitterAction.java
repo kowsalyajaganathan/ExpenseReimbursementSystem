@@ -42,7 +42,6 @@ public class SubmitterAction implements CRUDActionFactory{
 	public boolean createWorkflowObject(String actionType,ReimbursementFormFactory form,EmployeeVO empVO) {
 		boolean isWorkflowSuccess = false;
 		try{
-			WorkflowCloneManager workflow = new WorkflowCloneManager();
 			this.actionType = actionType;
 			
 			if(actionType.equals(Constants.ACTION_DELETE)){
